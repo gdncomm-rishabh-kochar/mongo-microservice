@@ -14,7 +14,7 @@
 
     <groupId>com.mongo</groupId>
     <artifactId>mongo-microservice</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.5-SNAPSHOT</version>
     <name>mongo-microservice</name>
     <description>MongoDB Microservice built with Spring Boot 3 and Java 21</description>
     <packaging>jar</packaging>
@@ -68,6 +68,12 @@
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
+        </dependency>
+
+        <!-- Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <!-- Test -->

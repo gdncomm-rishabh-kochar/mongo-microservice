@@ -1,0 +1,49 @@
+{
+  "properties": [
+    {
+      "name": "solr.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable Solr integration."
+    },
+    {
+      "name": "solr.url",
+      "type": "java.lang.String",
+      "description": "Base URL for the Solr server."
+    },
+    {
+      "name": "solr.collection",
+      "type": "java.lang.String",
+      "description": "Default Solr collection used for articles."
+    },
+    {
+      "name": "solr.products-collection",
+      "type": "java.lang.String",
+      "description": "Solr collection used for product documents."
+    },
+    {
+      "name": "solr.connection-timeout",
+      "type": "java.lang.Integer",
+      "description": "Solr connection timeout in milliseconds."
+    },
+    {
+      "name": "solr.read-timeout",
+      "type": "java.lang.Integer",
+      "description": "Solr read timeout in milliseconds."
+    },
+    {
+      "name": "kafka.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable Kafka listeners."
+    },
+    {
+      "name": "kafka.topic.product",
+      "type": "java.lang.String",
+      "description": "Kafka topic consumed for product events."
+    },
+    {
+      "name": "redis.publisher.topic",
+      "type": "java.lang.String",
+      "description": "Redis pub/sub channel used by the publisher endpoint."
+    }
+  ]
+}
