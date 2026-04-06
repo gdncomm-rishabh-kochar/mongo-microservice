@@ -11,16 +11,20 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
+@ConditionalOnProperty(prefix = "solr", name = "enabled", havingValue = "true", matchIfMissing = true)
 @RequiredArgsConstructor
 public class ArticleRepositoryImpl implements ArticleRepository {
 
@@ -88,16 +92,36 @@ public class ArticleRepositoryImpl implements ArticleRepository {
         return findById(id).isPresent();
     }
 
+    /** Safely get a single string from a Solr field (may be stored as single value or multi-valued list). */
+    private static String getStringField(SolrDocument doc, String name) {
+        Object val = doc.getFieldValue(name);
+        if (val == null) return null;
+        if (val instanceof Collection<?> col) {
+            return col.isEmpty() ? null : String.valueOf(col.iterator().next());
+        }
+        return String.valueOf(val);
+    }
+
+    /** Safely get a list of strings from a Solr field (may be single value or multi-valued). */
     @SuppressWarnings("unchecked")
+    private static List<String> getStringListField(SolrDocument doc, String name) {
+        Object val = doc.getFieldValue(name);
+        if (val == null) return Collections.emptyList();
+        if (val instanceof Collection<?> col) {
+            return col.stream().map(String::valueOf).collect(Collectors.toList());
+        }
+        return List.of(String.valueOf(val));
+    }
+
     private Article toArticle(SolrDocument doc) {
         return Article.builder()
-                .id((String) doc.getFieldValue("id"))
-                .title((String) doc.getFieldValue("title"))
-                .content((String) doc.getFieldValue("content"))
-                .author((String) doc.getFieldValue("author"))
-                .category((String) doc.getFieldValue("category"))
-                .tags((List<String>) (Object) doc.getFieldValues("tags"))
-                .createdAt((String) doc.getFieldValue("created_at"))
+                .id(getStringField(doc, "id"))
+                .title(getStringField(doc, "title"))
+                .content(getStringField(doc, "content"))
+                .author(getStringField(doc, "author"))
+                .category(getStringField(doc, "category"))
+                .tags(getStringListField(doc, "tags"))
+                .createdAt(getStringField(doc, "created_at"))
                 .build();
     }
 }

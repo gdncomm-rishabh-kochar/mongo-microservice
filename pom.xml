@@ -14,7 +14,7 @@
 
     <groupId>com.mongo</groupId>
     <artifactId>mongo-microservice</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>mongo-microservice</name>
     <description>MongoDB Microservice built with Spring Boot 3 and Java 21</description>
     <packaging>jar</packaging>

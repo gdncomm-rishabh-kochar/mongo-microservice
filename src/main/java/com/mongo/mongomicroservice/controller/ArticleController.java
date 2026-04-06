@@ -5,6 +5,7 @@ import com.mongo.mongomicroservice.dto.response.ArticleResponse;
 import com.mongo.mongomicroservice.service.ArticleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@ConditionalOnProperty(prefix = "solr", name = "enabled", havingValue = "true", matchIfMissing = true)
 @RequestMapping("/api/v1/articles")
 @RequiredArgsConstructor
 public class ArticleController {

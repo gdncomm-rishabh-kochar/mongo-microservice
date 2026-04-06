@@ -7,11 +7,13 @@ import com.mongo.mongomicroservice.model.Article;
 import com.mongo.mongomicroservice.repository.ArticleRepository;
 import com.mongo.mongomicroservice.service.ArticleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@ConditionalOnProperty(prefix = "solr", name = "enabled", havingValue = "true", matchIfMissing = true)
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 

@@ -9,9 +9,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 public class SolrProperties {
 
+    private boolean enabled = true;
     private String url = "http://localhost:8983/solr";
     private String collection = "articles";
     private String productsCollection = "products";
-    private long connectionTimeout = 5000;
-    private long readTimeout = 10000;
+    private int connectionTimeout = 5000;
+    private int readTimeout = 10000;
 }

@@ -7,11 +7,13 @@ import com.mongo.mongomicroservice.repository.SolrProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 
 @Repository
+@ConditionalOnProperty(prefix = "solr", name = "enabled", havingValue = "true", matchIfMissing = true)
 @RequiredArgsConstructor
 public class SolrProductRepositoryImpl implements SolrProductRepository {
 
